@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Блог{% endblock title %}
+
+{% block content %}
+        <main class="main">
+            <nav aria-label="breadcrumb" class="breadcrumb-nav">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/"><i class="icon-home"></i></a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'blog:blog' %}">блог</a></li>
+                    </ol>
+                </div><!-- End .container -->
+            </nav>
+
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-9">
+                        <article class="entry single">
+                            {% for post in posts %}
+                            <div class="entry-body">
+                                <div class="entry-meta" style="margin-top: 1.5rem;">
+                                    <span><i class="icon-calendar"></i>{{ post.date_posted }}</span>
+                                    <span><i class="icon-user"></i> <a href="#">{{ post.author }}</a></span>
+                                    <span><i class="icon-folder-open"></i> <a href="{% url 'blog:category' post.category.pk %}">{{ post.category }}</a></span>
+                                </div><!-- End .entry-meta -->
+                                <div class="entry-content" style="display: flex;">
+                                    <div class="align-self-start mr-3" style="width: 50%;">
+                                        {% if post.photo %}
+                                            <img src="{{ post.photo.url }}">
+                                        {% else %}
+                                            <img src="/static/images/no-img.jpg">
+                                        {% endif %}
+                                    </div>
+                                    <div style="margin-left: 2rem;">
+                                        <h2 class="entry-title">
+                                            {{ post.title }}
+                                        </h2>
+                                        <p style="text-align: justify;">{{ post.content|truncatechars:300 }}</p>
+                                        <p><input class="btn btn-primary" type="submit" value="Читать далее..."></p>
+                                    </div> <!-- End .entry-content -->
+                                </div>
+                                <div class="entry-share">
+                                    <h3>
+                                        <i class="icon-forward"></i>
+                                        Поделиться
+                                    </h3>
+
+
+                                    <div class="social-icons">
+                                        <a href="https://www.facebook.com/" class="social-icon social-facebook" target="_blank" title="Facebook">
+                                            <i class="fab fa-facebook-f"></i>
+                                        </a>
+                                        <a href="https://twitter.com/?lang=ru" class="social-icon social-twitter" target="_blank" title="Twitter">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                        <a href="https://ru.linkedin.com/" class="social-icon social-linkedin" target="_blank" title="Linkedin">
+                                            <i class="fab fa-linkedin-in"></i>
+                                        </a>
+                                        <a href="https://www.google.com/?hl=RU" class="social-icon social-gplus" target="_blank" title="Google +">
+                                            <i class="fab fa-google-plus-g"></i>
+                                        </a>
+                                        <a href="https://www.google.com/intl/ru/gmail/about/" class="social-icon social-mail" target="_blank" title="Email">
+                                            <i class="icon-mail-alt"></i>
+                                        </a>
+                                    </div><!-- End .social-icons -->
+                                </div><!-- End .entry-share -->
+                            </div><!-- End .entry-body -->
+                            {% endfor %}
+                        </article><!-- End .entry -->
+                    </div><!-- End .col-lg-9 -->
+
+                    <aside class="sidebar-shop col-lg-3 order-lg-first">
+                        <div class="sidebar-wrapper">
+                            <div class="widget">
+                                <h3 class="widget-title">
+                                    <a data-toggle="collapse" href="#widget-body-2" role="button" aria-expanded="true"
+                                    aria-controls="widget-body-2">Категории</a>
+                                </h3>
+
+                                <div class="collapse show" id="widget-body-2">
+                                    <div class="widget-body">
+                                        <ul class="cat-list">
+                                            <li class-="ul-separeta list-group">
+                                            {% for item in blog_categories %}
+                                            <a href="{% url 'blog:category' item.pk %}"
+                                               class="list-group-item list-group-item-action btn-outline-secondary btn-clear-cart"
+                                               style="text-decoration: none;">{{ item.title }}</a>
+                                            {% endfor %}
+                                            </li>
+                                        </ul>
+                                    </div><!-- End .widget-body -->
+                                </div><!-- End .collapse -->
+                            </div><!-- End .widget -->
+                        </div><!-- End .sidebar-wrapper -->
+                    </aside><!-- End .col-lg-3 -->
+
+                </div><!-- End .row -->
+            </div><!-- End .container -->
+        </main><!-- End .main -->
+{% endblock content %}
