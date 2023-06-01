@@ -1,12 +1,13 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from django.urls import reverse
 
 from apps.accounts.forms import OrderCreationForm
 from apps.accounts.models import OrderItem
 from apps.cart.cart import Cart
 from apps.catalog.models import Product
+
+from apps.accounts.models import Order
 
 
 def cart(request, product_id=None):
@@ -46,6 +47,7 @@ def order(request):
         if form.is_valid():
             order = form.save(commit=False)
             order.user = request.user
+            orders = Order.objects.filter(user=order.user)
             order.save()
             for item in cart:
                 OrderItem.objects.create(order=order,
@@ -53,7 +55,7 @@ def order(request):
                                          price=item['price'],
                                          quantity=item['quantity'])
             cart.clear()
-            return HttpResponseRedirect(reverse('cart:order'), {'order': order})
+            return render(request, 'cart/order.html', {'orders': orders})
         else:
             return render(request, 'cart/cart.html', {'form': form})
     else:

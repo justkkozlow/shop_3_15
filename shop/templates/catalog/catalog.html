@@ -11,7 +11,7 @@
         <div class="container">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/"><i class="icon-home"></i></a></li>
-                <li class="breadcrumb-item active" aria-current="page">КАТАЛОГ</li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'catalog:catalog' %}">КАТАЛОГ</a></li>
             </ol>
         </div><!-- End .container -->
     </nav>
@@ -34,25 +34,25 @@
                             </form>
                         </div><!-- End .toolbox-item -->
                     </div><!-- End .toolbox-left -->
-
                 </nav>
-
                 <div class="row row-sm">
                     {% for product in page_obj %}
                     <div class="col-6 col-md-4 col-lg-3">
                         <div class="product-default inner-quickview inner-icon">
                             <figure>
                                 <a href="{% url 'catalog:product' product.id %}">
-                                    <img src="{{ product.image_set.first.image.url }}">
+                                    <img src="{{ product.image_set.first.image.url }}" style="width: 300px !important; height: 250px !important;">
                                 </a>
-
                                 <div class="btn-icon-group">
                                     <a href="{% url 'cart:cart' product.id %}">
                                         <button class="btn-icon btn-add-cart" data-toggle="modal"
                                                 data-target="#addCartModal"><i class="icon-bag"></i></button>
                                     </a>
+                                    <a href="{% url 'cart:cart' product.id %}">
+                                        <button class="btn-icon btn-add-cart" data-toggle="modal"
+                                                data-target="#addCartModal"><i class="icon-heart"></i></button>
+                                    </a>
                                 </div>
-
                             </figure>
                             <div class="product-details">
                                 <div class="category-wrap">
@@ -79,11 +79,9 @@
                                <a href="?page=1&order={{ sort_order }}">Начало|</a>
                                <a href="?page={{ page_obj.previous_page_number }}&order={{ sort_order }}">Предыдущая|</a>
                                 {% endif %}
-
                            <span class="current">
                                Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
                            </span>
-
                                 {% if page_obj.has_next %}
                                <a href="?page={{ page_obj.next_page_number }}&order={{ sort_order }}">|Следующая</a>
                                <a href="?page={{ page_obj.paginator.num_pages }}&order={{ sort_order }}">|Конец &raquo;</a>
@@ -105,11 +103,15 @@
                             <div class="widget-body">
                                 <ul class="cat-list">
                                     {% recursetree categories %}
-                                        <li class-="ul-separeta list-group">
+                                        <li>
                                             {% if node.id == current_id %}
-                                            <a href="{% url 'catalog:catalog' node.id %}" style="color: #ea6253;">{{ node.name }}</a>
+                                            <a href="{% url 'catalog:catalog' node.id %}"
+                                               class="list-group-item list-group-item-action btn-outline-secondary btn-clear-cart active"
+                                               style="text-decoration: none;" >{{ node.name }}</a>
                                             {% else %}
-                                            <a href="{% url 'catalog:catalog' node.id %}">{{ node.name }}</a>
+                                            <a href="{% url 'catalog:catalog' node.id %}"
+                                               class="list-group-item list-group-item-action btn-outline-secondary btn-clear-cart"
+                                               style="text-decoration: none;">{{ node.name }}</a>
                                             {% endif %}
                                             {% if not node.is_leaf_node %}
                                                 <ul class="children list-group-item">

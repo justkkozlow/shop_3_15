@@ -1,11 +1,14 @@
+from django.core.mail import send_mail
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
+
 from apps.catalog.models import Category, Product
+from apps.catalog.forms import ContactForm
 
 
 def index(request):
     data = {'slider_list': Product.objects.filter(slider=True),
-            'chosen_list': Product.objects.filter(chosen=True)} # slider=True было
+            'chosen_list': Product.objects.filter(chosen=True)}
 
     return render(request, 'catalog/index.html', context=data)
 
@@ -39,3 +42,20 @@ def product(request, product_id):
     ).exclude(id=product_id).order_by('chosen')[:4]
 
     return render(request, 'catalog/product.html', data)
+
+
+def feedback(request):
+    context = {}
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            send_mail(form.cleaned_data['subject'],
+                      form.cleaned_data['content'],
+                      'kozlov.khv@gmail.com', ['kozlov.khv@gmail.com'],
+                      )
+            context = {'success': 1}
+    else:
+        form = ContactForm()
+
+    context['form'] = form
+    return render(request, 'catalog/about.html', context)

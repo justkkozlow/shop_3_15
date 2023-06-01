@@ -25,10 +25,6 @@
             wf.async = true;
             s.parentNode.insertBefore(wf, s);
         })(document);
-
-
-
-
     </script>
 
     <!-- Plugins CSS File -->
@@ -50,7 +46,7 @@
                             <i class="icon-menu"></i>
                         </button>
                         <a href="/" class="logo">
-                            <h1>КИН<span style="color: red;">ДЕР</span></h1>
+                            <img src="/static/images/logo.png" style="height: 100px">
                         </a>
                     </div>
 
@@ -79,31 +75,33 @@
 
                                 </li>
 
-<!--                                <li>-->
-<!--                                    <a href="">БЛОГ</a>-->
-<!--                                </li>-->
+                                <li>
+                                    <a href="{% url 'blog:blog' %}">БЛОГ</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'catalog:about' %}">КОНТАКТЫ</a>
+                                </li>
                                 {% if user.is_authenticated %}
                                 <li class="sf-with-ul">
                                     <a href="{% url 'accounts:logout' %}">ВЫЙТИ</a>
                                 </li>
                                 {% else %}
                                 <li class="sf-with-ul">
-                                    <a href="{% url 'accounts:login' %}">ВОЙТИ</a>
+                                    <a href="{% url 'accounts:login' %}">ВХОД/РЕГИСТРАЦИЯ</a>
                                 </li>
                                 {% endif %}
                             </ul>
                         </nav>
                     </div>
-
                     <div class="col-lg-2 header-right">
                         {% if user.is_authenticated %}
                         <a href="{% url 'accounts:dashboard' %}">
                         {% else %}
                         <a href="{% url 'accounts:login' %}">
                         {% endif %}
-                            <div class="header-user">
+                            <div class="header-user" style="font-size: 14px;">
                                 <i class="icon-user-2"></i>
-                                <p style="font-size:120%;">{{user.username}}</p>
+                                <p>{{user.username}}</p>
                             </div>
                         </a>
                         </a>
@@ -206,13 +204,8 @@
                                 <div class="col-lg-4">
                                     <ul>
                                         {% recursetree categories %}
-                                        <li class="ul-separate list-group">
+                                        <li>
                                             <a href="{% url 'catalog:catalog' node.id %}">{{ node.name }}</a>
-                                            {% if not node.is_leaf_node %}
-<!--                                            <ul class="children list-group-item">-->
-<!--                                                {{children}}-->
-<!--                                            </ul>-->
-                                            {% endif %}
                                         </li>
                                         {% endrecursetree %}
                                     </ul>
@@ -242,32 +235,32 @@
     </footer><!-- End .footer -->
 </div><!-- End .page-wrapper -->
 
-<div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
+<!--<div class="mobile-menu-overlay"></div>&lt;!&ndash; End .mobil-menu-overlay &ndash;&gt;-->
 
-<div class="mobile-menu-container">
-    <div class="mobile-menu-wrapper">
-        <span class="mobile-menu-close"><i class="icon-retweet"></i></span>
-        <nav class="mobile-nav">
-            <ul class="mobile-menu">
-                <li><a href="">ГЛАВНАЯ</a></li>
-                <li>
-                    <a href="">КАТАЛОГ</a>
-                    <ul>
-                        <li><a href="">Раздел</a></li>
-                    </ul>
-                </li>
-                <li><a href="">БЛОГ</a></li>
-                <li><a href="">АВТОРИЗАЦИЯ</a></li>
-            </ul>
-        </nav><!-- End .mobile-nav -->
+<!--<div class="mobile-menu-container">-->
+<!--    <div class="mobile-menu-wrapper">-->
+<!--        <span class="mobile-menu-close"><i class="icon-retweet"></i></span>-->
+<!--        <nav class="mobile-nav">-->
+<!--            <ul class="mobile-menu">-->
+<!--                <li><a href="">ГЛАВНАЯ</a></li>-->
+<!--                <li>-->
+<!--                    <a href="">КАТАЛОГ</a>-->
+<!--                    <ul>-->
+<!--                        <li><a href="">Раздел</a></li>-->
+<!--                    </ul>-->
+<!--                </li>-->
+<!--                <li><a href="">БЛОГ</a></li>-->
+<!--                <li><a href="">АВТОРИЗАЦИЯ</a></li>-->
+<!--            </ul>-->
+<!--        </nav>&lt;!&ndash; End .mobile-nav &ndash;&gt;-->
 
-        <div class="social-icons">
-            <a href="#" class="social-icon" target="_blank"><i class="icon-facebook"></i></a>
-            <a href="#" class="social-icon" target="_blank"><i class="icon-twitter"></i></a>
-            <a href="#" class="social-icon" target="_blank"><i class="icon-instagram"></i></a>
-        </div><!-- End .social-icons -->
-    </div><!-- End .mobile-menu-wrapper -->
-</div><!-- End .mobile-menu-container -->
+<!--        <div class="social-icons">-->
+<!--            <a href="#" class="social-icon" target="_blank"><i class="icon-facebook"></i></a>-->
+<!--            <a href="#" class="social-icon" target="_blank"><i class="icon-twitter"></i></a>-->
+<!--            <a href="#" class="social-icon" target="_blank"><i class="icon-instagram"></i></a>-->
+<!--        </div>&lt;!&ndash; End .social-icons &ndash;&gt;-->
+<!--    </div>&lt;!&ndash; End .mobile-menu-wrapper &ndash;&gt;-->
+<!--</div>&lt;!&ndash; End .mobile-menu-container &ndash;&gt;-->
 
 <!-- Plugins JS File -->
 <script src="{% static 'js/jquery.min.js' %}"></script>

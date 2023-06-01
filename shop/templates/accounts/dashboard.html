@@ -8,7 +8,7 @@
             <nav aria-label="breadcrumb" class="breadcrumb-nav">
                 <div class="container">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href=""><i class="icon-home"></i></a></li>
+                        <li class="breadcrumb-item"><a href="/"><i class="icon-home"></i></a></li>
                         <li class="breadcrumb-item active" aria-current="page">Личный кабинет</li>
                     </ol>
                 </div><!-- End .container -->
@@ -108,6 +108,9 @@
                             <ul class="list">
                                 <li class="active"><a href="#">Учетная запись</a></li>
                                 <li><a href="#">Заказы</a></li>
+                                {% if user.is_superuser %}
+                                <li><a href="http://127.0.0.1:8000/admin" target="_blank">Панель администратора</a></li>
+                                {% endif %}
                             </ul>
                         </div><!-- End .widget -->
                     </aside><!-- End .col-lg-3 -->

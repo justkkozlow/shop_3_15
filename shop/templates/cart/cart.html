@@ -33,7 +33,7 @@
                                 <td class="product-col">
                                     <figure class="product-image-container">
                                         <a href="{% url 'catalog:product' item.product.id %}" class="product-image">
-                                            <img src="{{ item.product.image_set.first.image.url }}" alt="product">
+                                            <img src="{{ item.product.image_set.first.image.url }}" style="height: auto !important;" alt="product">
                                         </a>
                                     </figure>
                                     <h2 class="product-title">
@@ -44,35 +44,33 @@
                                 <td>{{ item.quantity }}</td>
                                 <td>
                                     <div>
-                                        <a href="{% url 'cart:cart_add' item.product.id %}" title="Edit product" class="btn-edit"><span class="sr-only">Add</span><i
+                                        <a href="{% url 'cart:cart_add' item.product.id %}" title="Добавить" class="btn-edit"><span class="sr-only">Добавить</span><i
                                                 class="icon-plus"></i></a>
-                                        <a href="{% url 'cart:cart_remove' item.product.id %}" title="Remove product" class="btn-remove"><span
-                                                class="sr-only">Remove</span></a>
+                                        <a href="{% url 'cart:cart_remove' item.product.id %}" title="Удалить" class="btn-remove"><span
+                                                class="sr-only">Удалить</span></a>
                                     </div><!-- End .float-right -->
                                 </td>
                             </tr>
                             {% endfor %}
-                        <tr class="product-action-row">
-                            <td colspan="4" class="clearfix">
+                            <tr class="product-action-row">
+                                <td colspan="4" class="clearfix">
 
-
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
                         </tbody>
-                        {% for item in cart %}
-                        <tfoot>
-                        <tr>
-                            <td colspan="4" class="clearfix">
-                                <div class="float-left">
-                                    <a href="{% url 'catalog:catalog' %}" class="btn btn-outline-secondary">Продолжить покупки</a>
-                                </div><!-- End .float-left -->
 
-                                <div class="float-right">
-                                    <a href="{% url 'cart:cart_remove' item.product.id %}" class="btn btn-outline-secondary btn-clear-cart">Очистить корзину</a>
-                                </div><!-- End .float-right -->
-                            </td>
-                        </tr>
-                        {% endfor %}
+                        <tfoot>
+                            <tr>
+                                <td colspan="4" class="clearfix">
+                                    <div class="float-left">
+                                        <a href="{% url 'catalog:catalog' %}" class="btn btn-outline-secondary">Продолжить покупки</a>
+                                    </div><!-- End .float-left -->
+
+                                    <div class="float-right">
+                                        <a href="{% url 'cart:cart_clear' %}" class="btn btn-outline-secondary btn-clear-cart">Очистить корзину</a>
+                                    </div><!-- End .float-right -->
+                                </td>
+                            </tr>
                         </tfoot>
                     </table>
                 </div><!-- End .cart-table-container -->
@@ -83,14 +81,23 @@
                     <h3>Заказ</h3>
 
                     <form action="{% url 'cart:order' %}" method="post" class="order-form">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        {% if form.errors %}
-                        {% for error in form.errors %}
-                        <p>{{ error }}</p>
-                        {% endfor %}
-                        {% endif %}
-                        <p><input class="btn btn-block btn-sm btn-primary" type="submit" value="Оформить заказ"></p>
+                        <div class="form-label">
+                            {% if user.is_authenticated %}
+                            {% csrf_token %}
+                                <div style="margin-right: 200px">
+                                {{ form.as_p }}
+                                </div>
+                            {% if form.errors %}
+                            {% for error in form.errors %}
+                            <p>{{ error }}</p>
+                            {% endfor %}
+                            {% endif %}
+                            <form action="{% url 'cart:order' %}" method="post" class="order-form"></form>
+                            <p><input class="btn btn-block btn-sm btn-primary" type="submit" value="Оформить заказ"></p>
+                            {% else %}
+                        </div>
+                        <a href="{% url 'accounts:login' %}" class="btn btn-block btn-sm btn-primary">Авторизоваться</a>
+                            {% endif %}
                     </form>
 
                 </div><!-- End .cart-summary -->

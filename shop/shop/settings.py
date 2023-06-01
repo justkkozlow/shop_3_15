@@ -28,7 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mptt',
     'apps.accounts',
-    # 'apps.blog',
+    'apps.blog',
     'apps.cart',
     'apps.catalog',
 ]
@@ -124,6 +124,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST_USER = 'admin@localhost'
+# EMAIL_HOST_USER = 'admin@localhost'
+#
+# ADMINS = [('admin', 'admin@localhost')]
 
-ADMINS = [('admin', 'admin@localhost')]
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST_USER = 'kozlov.khv@gmail.com'
+EMAIL_HOST_PASSWORD = 'mykvcwsripytnrgt'

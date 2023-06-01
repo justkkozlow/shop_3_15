@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordResetForm, SetPasswordForm
 from django.core.mail import send_mail
 from django import forms
 from django.contrib.auth.models import User
@@ -32,3 +32,36 @@ class OrderCreationForm(forms.ModelForm):
         fields = ['address', 'phone']
         labels = {'address': 'Адрес', 'phone': 'Телефон'}
 
+
+class UserForgotPasswordForm(PasswordResetForm):
+    """
+    Запрос на восстановление пароля
+    """
+
+    def __init__(self, *args, **kwargs):
+        """
+        Обновление стилей формы
+        """
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({
+                'class': 'form-control',
+                'autocomplete': 'off'
+            })
+
+
+class UserSetNewPasswordForm(SetPasswordForm):
+    """
+    Изменение пароля пользователя после подтверждения
+    """
+
+    def __init__(self, *args, **kwargs):
+        """
+        Обновление стилей формы
+        """
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({
+                'class': 'form-control',
+                'autocomplete': 'off'
+            })

@@ -9,43 +9,45 @@
             <nav aria-label="breadcrumb" class="breadcrumb-nav">
                 <div class="container">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#"><i class="icon-home"></i></a></li>
+                        <li class="breadcrumb-item"><a href="/"><i class="icon-home"></i></a></li>
                         <li class="breadcrumb-item active" aria-current="page">Заказ</li>
                     </ol>
                 </div><!-- End .container -->
             </nav>
 
             <div class="container">
-                <h1>Thank you</h1>
-
+                <h1 style="padding-bottom: 1rem;">Спасибо, {{ user.username }}</h1>
                 <div class="row">
-
+                    {% for order in orders %}
                     <div class="col-lg-4">
                         <div class="cart-summary">
-                            <h3>Номер Вашего заказа <strong>Номер</strong></h3>
-
-                            <h4>Статус: <strong>отправлен</strong></h4>
-
-                            <table class="table table-totals">
-                                <tbody>
-
-                                    <tr>
-                                        <td>Продукт</td>
-                                        <td>Количество</td>
-                                        <td>Цена</td>
-                                    </tr>
-
+                            <h3>Номер Вашего заказа <strong>{{ order.id }}</strong></h3>
+                                {% if order.shipped %}
+                                <h4>Статус: <strong>отправлен</strong></h4>
+                                {% else %}
+                                <h4>Статус: <strong>в обработке</strong></h4>
+                                {% endif %}
+                                <table class="table table-totals">
+                                    <tbody>
+                                        {% for item in order.items.all %}
+                                        <tr>
+                                            <td>{{ item.product.name }}</td>
+                                            <td>{{ item.quantity }}</td>
+                                            <td>{{ item.price }}</td>
+                                        </tr>
+                                        {% endfor %}
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <td>Итого</td>
-                                        <td>Сумма</td>
+                                        <td>{{ order.get_total_cost }}</td>
                                     </tr>
                                 </tfoot>
                             </table>
-
+                            <p><input class="btn btn-block btn-sm btn-primary" type="submit" value="Оплатить заказ"></p>
                         </div><!-- End .cart-summary -->
                     </div><!-- End .col-lg-4 -->
+                    {% endfor %}
                 </div><!-- End .row -->
             </div><!-- End .container -->
         </main><!-- End .main -->

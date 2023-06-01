@@ -3,8 +3,8 @@ from mptt.models import MPTTModel, TreeForeignKey
 
 
 class Category(MPTTModel):
-    name = models.CharField(max_length=50)
-    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
+    name = models.CharField(max_length=50, verbose_name='Название категории')
+    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children', verbose_name='Родитель')
 
     class MPTTMeta:
         order_insertion_by = ['name']
@@ -12,17 +12,26 @@ class Category(MPTTModel):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = "Категория"
+        verbose_name_plural = "Категории"
+
 
 class Product(models.Model):
-    name = models.CharField(max_length=80)
-    price = models.DecimalField(decimal_places=2, max_digits=6)
-    description = models.TextField()
-    category = models.ForeignKey('Category', on_delete=models.CASCADE)
-    chosen = models.BooleanField(default=False)
-    slider = models.BooleanField(default=False)
+    name = models.CharField(max_length=80, verbose_name='Наименование')
+    price = models.DecimalField(decimal_places=2, max_digits=9, verbose_name='Цена')
+    description = models.TextField(verbose_name='Описание')
+    category = models.ForeignKey('Category', on_delete=models.CASCADE, verbose_name='Категория')
+    photo = models.ImageField(upload_to='catalog_images', verbose_name='Фото', blank=True)
+    chosen = models.BooleanField(default=False, verbose_name='Добавить в избранное')
+    slider = models.BooleanField(default=False, verbose_name='Добавить в слайдер')
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = "Товар"
+        verbose_name_plural = "Товары"
 
 
 class Image(models.Model):
@@ -31,3 +40,7 @@ class Image(models.Model):
 
     def __str__(self):
         return self.image.name
+
+    class Meta:
+        verbose_name = "Изоображения"
+        verbose_name_plural = "Изоображения"
