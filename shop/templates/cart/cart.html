@@ -81,23 +81,19 @@
                     <h3>Заказ</h3>
 
                     <form action="{% url 'cart:order' %}" method="post" class="order-form">
-                        <div class="form-label">
-                            {% if user.is_authenticated %}
-                            {% csrf_token %}
-                                <div style="margin-right: 200px">
-                                {{ form.as_p }}
-                                </div>
-                            {% if form.errors %}
-                            {% for error in form.errors %}
-                            <p>{{ error }}</p>
-                            {% endfor %}
-                            {% endif %}
-                            <form action="{% url 'cart:order' %}" method="post" class="order-form"></form>
-                            <p><input class="btn btn-block btn-sm btn-primary" type="submit" value="Оформить заказ"></p>
-                            {% else %}
-                        </div>
+                        {% if user.is_authenticated %}
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        {% if form.errors %}
+                        {% for error in form.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                        {% endif %}
+                        <form action="{% url 'cart:order' %}" method="post" class="order-form"></form>
+                        <p><input class="btn btn-block btn-sm btn-primary" type="submit" value="Оформить заказ"></p>
+                        {% else %}
                         <a href="{% url 'accounts:login' %}" class="btn btn-block btn-sm btn-primary">Авторизоваться</a>
-                            {% endif %}
+                        {% endif %}
                     </form>
 
                 </div><!-- End .cart-summary -->

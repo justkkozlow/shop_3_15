@@ -8,11 +8,14 @@ from apps.accounts.models import Order
 
 
 class RegisterForm(UserCreationForm):
-    email = forms.EmailField(label="Email")
+    email = forms.EmailField(label="Email", widget=forms.TextInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = User
-        fields = ("username", "email",)
+        fields = ("username", "email")
+        widgets = {
+            "username": forms.TextInput(attrs={'class': 'form-control'}),
+        }
 
     def save(self, *args, **kwargs):
         self.instance.email = self.cleaned_data["email"]
@@ -31,6 +34,10 @@ class OrderCreationForm(forms.ModelForm):
         model = Order
         fields = ['address', 'phone']
         labels = {'address': 'Адрес', 'phone': 'Телефон'}
+        widgets = {
+            'address': forms.TextInput(attrs={'class': 'form-control'}),
+            'phone': forms.TextInput(attrs={'class': 'form-control'}),
+        }
 
 
 class UserForgotPasswordForm(PasswordResetForm):

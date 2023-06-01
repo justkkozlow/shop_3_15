@@ -38,7 +38,7 @@
                                         <p>
                                             {{ user.username }}<br>
                                             {{ user.email }}<br>
-                                            <a href="#">Изменить пароль</a>
+                                            <a href="{% url 'accounts:change_pass' %}">Изменить пароль</a>
                                         </p>
                                     </div><!-- End .card-body -->
                                 </div><!-- End .card -->
