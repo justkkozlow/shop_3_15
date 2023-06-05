@@ -1,5 +1,8 @@
 import os
+from dotenv import load_dotenv, find_dotenv
 from pathlib import Path
+
+load_dotenv(find_dotenv())
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,6 +23,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -71,11 +75,11 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'shop',
-        'USER': 'shop_user',
-        'PASSWORD': '428529',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': os.getenv('PG_NAME'),
+        'USER': os.getenv('PG_USER'),
+        'PASSWORD': os.getenv('PG_PASSWORD'),
+        'HOST': os.getenv('PG_HOST'),
+        'PORT': os.getenv('PG_PORT'),
     }
 }
 
@@ -137,5 +141,5 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-EMAIL_HOST_USER = 'kozlov.khv@gmail.com'
-EMAIL_HOST_PASSWORD = 'mykvcwsripytnrgt'
+EMAIL_HOST_USER = os.getenv('HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('HOST_PASSWORD')
