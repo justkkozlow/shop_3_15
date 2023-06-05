@@ -16,6 +16,7 @@ def blog(request):
 
 
 def article(request, article_id):
+    posts = Post.objects.all()
     article_item = Post.objects.get(pk=article_id)
 
     return render(request, 'blog/article.html', {'article_item': article_item})

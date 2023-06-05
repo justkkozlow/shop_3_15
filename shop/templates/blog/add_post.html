@@ -19,7 +19,6 @@
 
             <div class="container">
                 <div class="row">
-
                     <div class="col-lg-9">
                         <article class="entry single">
                             <div class="entry-body">
@@ -33,30 +32,6 @@
                             </div><!-- End .entry-body -->
                         </article><!-- End .entry -->
                     </div><!-- End .col-lg-9 -->
-
-                    <aside class="sidebar-shop col-lg-3 order-lg-first">
-                        <div class="sidebar-wrapper">
-                            <div class="widget">
-                                <h3 class="widget-title">
-                                    <a data-toggle="collapse" href="#widget-body-2" role="button" aria-expanded="true"
-                                    aria-controls="widget-body-2">Категории</a>
-                                </h3>
-                                <div class="collapse show" id="widget-body-2">
-                                    <div class="widget-body">
-                                        <ul class="cat-list">
-                                            <li>
-                                            {% for item in blog_categories %}
-                                            <a href="{% url 'blog:category' item.pk %}"
-                                               class="list-group-item list-group-item-action btn-outline-secondary btn-clear-cart"
-                                               style="text-decoration: none;">{{ item.title }}</a>
-                                            {% endfor %}
-                                            </li>
-                                        </ul>
-                                    </div><!-- End .widget-body -->
-                                </div><!-- End .collapse -->
-                            </div><!-- End .widget -->
-                        </div><!-- End .sidebar-wrapper -->
-                    </aside><!-- End .col-lg-3 -->
                 </div><!-- End .row -->
             </div><!-- End .container -->
         </main><!-- End .main -->

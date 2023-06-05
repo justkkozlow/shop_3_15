@@ -54,7 +54,6 @@ def a_change_password(request):
     if request.method == 'POST':
         form = UserSetNewPasswordForm(request.POST)
         if form.is_valid():
-            old_password = request.POST.get("old_password")
             new_pass = request.POST.get("new_password")
             new_pass_rep = request.POST.get("new_password_repeat")
             form.save()
@@ -63,7 +62,7 @@ def a_change_password(request):
     else:
             form = UserSetNewPasswordForm(user)
 
-    return render(request, 'accounts/login.html',
+    return render(request, 'accounts/change_password.html',
               {'form': form, 'user': user})
 
 

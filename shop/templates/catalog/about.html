@@ -19,31 +19,26 @@
                                 <p><strong>Тел.:</strong> +7 (123) 456-78-99</p>
                                 <p><strong>Часы работы:</strong> 09:00-20:00</p>
                             </div>
-
                         </div>
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-12 offset-md-2">
                                 <h1 class="entry-title">Обратная связь</h1>
-                            </div>
-                            <div class="col-lg-8">
-
-
-                            <form method="post">
-                                {% csrf_token %}
-                                {% if success %}
-                                <div class="alert alert-success">
-                                    <strong>Спасибо за обратную связь!!!</strong>
-                                </div>
-                                {% else %}
-                                    {{ form.as_p }}
-                                    {% if form.errors %}
-                                    {% for error in form.errors %}
-                                    <p>{{ error }}</p>
-                                    {% endfor %}
+                                <form method="post">
+                                    {% csrf_token %}
+                                    {% if success %}
+                                    <div class="alert alert-success">
+                                        <strong>Спасибо за обратную связь!!!</strong>
+                                    </div>
+                                    {% else %}
+                                        {{ form.as_p }}
+                                        {% if form.errors %}
+                                        {% for error in form.errors %}
+                                        <p>{{ error }}</p>
+                                        {% endfor %}
+                                        {% endif %}
+                                            <button type="submit" class="btn btn-primary btn-outline-secondary active">Отправить</button>
                                     {% endif %}
-                                        <button type="submit" class="btn btn-primary btn-outline-secondary active">Отправить</button>
-                                {% endif %}
-                            </form>
+                                </form>
                             </div>
                         </div>
                     </div>

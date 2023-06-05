@@ -101,7 +101,7 @@
                         {% endif %}
                             <div class="header-user" style="font-size: 14px;">
                                 <i class="icon-user-2"></i>
-                                <p>{{user.username}}</p>
+                                <p>{{ user.username }}</p>
                             </div>
                         </a>
                         </a>
@@ -190,7 +190,7 @@
                                     <ul>
                                         <li><a href="/">Главная</a></li>
                                         <li><a href="{% url 'catalog:catalog' %}">Каталог</a></li>
-                                        <li><a href="">Блог</a></li>
+                                        <li><a href="{% url 'blog:blog' %}">Блог</a></li>
                                         <li><a href="{% url 'accounts:login' %}">Авторизация</a></li>
                                     </ul>
                                 </div>

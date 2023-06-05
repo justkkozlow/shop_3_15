@@ -52,11 +52,6 @@
                                 </td>
                             </tr>
                             {% endfor %}
-                            <tr class="product-action-row">
-                                <td colspan="4" class="clearfix">
-
-                                </td>
-                            </tr>
                         </tbody>
 
                         <tfoot>
@@ -89,7 +84,6 @@
                         <p>{{ error }}</p>
                         {% endfor %}
                         {% endif %}
-                        <form action="{% url 'cart:order' %}" method="post" class="order-form"></form>
                         <p><input class="btn btn-block btn-sm btn-primary" type="submit" value="Оформить заказ"></p>
                         {% else %}
                         <a href="{% url 'accounts:login' %}" class="btn btn-block btn-sm btn-primary">Авторизоваться</a>

@@ -22,16 +22,18 @@
                 <div class="row">
                     <div class="col-lg-md">
                         <article class="entry single">
-
                             <div class="entry-body">
                                 <div class="entry-meta" style="margin-top: 1.5rem;">
                                     <span><i class="icon-calendar"></i>{{ article_item.date_posted }}</span>
-                                    <span><i class="icon-user"></i> <a href="#">{{ article_item.author }}</a></span>
                                     <span><i class="icon-folder-open"></i> <a href="{{ item.get_absolute_url }}">{{ article_item.category }}</a></span>
                                 </div><!-- End .entry-meta -->
                                 <div class="entry-content" style="display: flex;">
                                     <div class="align-self-start mr-3" style="width: 50%;">
-                                        <img src="{{ article_item.photo.url }}">
+                                        {% if article_item.photo %}
+                                        <img src="{{ article_item.photo.url}}">
+                                        {% else %}
+                                        <img src="/static/images/no-img.jpg">
+                                        {% endif %}
                                     </div>
                                     <div style="margin-left: 2rem;">
                                         <h2 class="entry-title">
@@ -40,11 +42,11 @@
                                         <p style="text-align: justify;">{{ article_item.content }}</p>
                                     </div>
                                 </div>
-
                             </div>
                         </article>
                     </div>
                 </div><!-- End .container -->
             </div><!-- End .featured-section -->
+
         </main><!-- End .main -->
 {% endblock content %}
